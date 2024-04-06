@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Film.cs" />
+    <Compile Include="Models\FilmCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
