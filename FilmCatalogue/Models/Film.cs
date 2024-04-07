@@ -26,5 +26,7 @@ namespace FilmCatalogue.Models
         [Column("release")]
         [Required]
         public DateTime Release { get; set; }
+
+        public ICollection<FilmCategory> FilmCategories { get; } = new List<FilmCategory>();
     }
 }

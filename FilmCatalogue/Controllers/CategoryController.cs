@@ -101,7 +101,7 @@ namespace FilmCatalogue.Controllers
         }
 
         // POST: Category/Delete/5
-        [HttpPost, ActionName("Delete")]]
+        [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Film film = await db.Films.FindAsync(id);

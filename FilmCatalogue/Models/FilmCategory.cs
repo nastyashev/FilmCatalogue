@@ -15,9 +15,14 @@ namespace FilmCatalogue.Models
         public int Id { get; set; }
 
         [Column("film_id")]
+        [ForeignKey(nameof(Film))]
         public int FilmId { get; set; }
 
         [Column("category_id")]
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
+
+        public virtual Film Film { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

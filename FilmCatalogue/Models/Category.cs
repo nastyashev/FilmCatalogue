@@ -20,7 +20,10 @@ namespace FilmCatalogue.Models
         public string Name { get; set; }
 
         [Column("parent_category_id")]
-        [ForeignKey(nameof(Category))]
         public int? ParentCategoryId { get; set; }
+
+        public Category ParentCategory { get; set; }
+        public ICollection<Category> Subcategories { get; } = new List<Category>();
+        public ICollection<FilmCategory> FilmCategories { get; } = new List<FilmCategory>();
     }
 }
