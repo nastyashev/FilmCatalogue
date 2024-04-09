@@ -22,24 +22,12 @@ namespace FilmCatalogue.Controllers
             return View(await db.Categories.ToListAsync());
         }
 
-        // GET: Category/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = await db.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
         // GET: Category/Create
         public ActionResult Create()
         {
+            var categories = db.Categories.ToList();
+            categories.Insert(0, new Category { Id = 0, Name = "None" });
+            ViewBag.ParentCategoryId = new SelectList(categories, "Id", "Name");
             return View();
         }
 
@@ -49,6 +37,10 @@ namespace FilmCatalogue.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (category.ParentCategoryId == 0)
+                {
+                    category.ParentCategoryId = null;
+                }
                 db.Categories.Add(category);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -65,6 +57,9 @@ namespace FilmCatalogue.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Category category = await db.Categories.FindAsync(id);
+            var categories = db.Categories.Where(c => c.Id != id).ToList();
+            categories.Insert(0, new Category { Id = 0, Name = "None" });
+            ViewBag.ParentCategoryId = new SelectList(categories, "Id", "Name", category.ParentCategoryId);
             if (category == null)
             {
                 return HttpNotFound();
@@ -78,6 +73,10 @@ namespace FilmCatalogue.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (category.ParentCategoryId == 0)
+                {
+                    category.ParentCategoryId = null;
+                }
                 db.Entry(category).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -104,8 +103,8 @@ namespace FilmCatalogue.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Film film = await db.Films.FindAsync(id);
-            db.Films.Remove(film);
+            Category category = await db.Categories.FindAsync(id);
+            db.Categories.Remove(category);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
