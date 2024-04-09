@@ -42,6 +42,13 @@
             </div>
         </div>
 
+        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+            @foreach (var category in ViewBag.Categories as List<FilmCatalogue.Models.Category>)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -56,4 +63,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 }

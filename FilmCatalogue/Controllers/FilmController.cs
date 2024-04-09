@@ -22,6 +22,7 @@ namespace FilmCatalogue.Controllers
             var query = await db.Films
                 .Select(f => new
                 {
+                    f.Id,
                     f.Name,
                     f.Director,
                     f.Release,
@@ -31,6 +32,7 @@ namespace FilmCatalogue.Controllers
 
             var result = query.Select(f => new Film
             {
+                Id = f.Id,
                 Name = f.Name,
                 Director = f.Director,
                 Release = f.Release,
@@ -58,6 +60,7 @@ namespace FilmCatalogue.Controllers
         // GET: Film/Create
         public ActionResult Create()
         {
+            ViewBag.Categories = db.Categories.ToList();
             return View();
         }
 
