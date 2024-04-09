@@ -22,6 +22,22 @@ namespace FilmCatalogue.Models
         [Column("parent_category_id")]
         public int? ParentCategoryId { get; set; }
 
+        [NotMapped]
+        public int Level
+        {
+            get
+            {
+                int level = 0;
+                var category = this;
+                while (category.ParentCategory != null)
+                {
+                    level++;
+                    category = category.ParentCategory;
+                }
+                return level;
+            }
+        }
+
         public Category ParentCategory { get; set; }
         public ICollection<Category> Subcategories { get; } = new List<Category>();
         public ICollection<FilmCategory> FilmCategories { get; } = new List<FilmCategory>();
