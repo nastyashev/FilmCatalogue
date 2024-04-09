@@ -19,7 +19,8 @@ namespace FilmCatalogue.Controllers
         // GET: Category
         public async Task<ActionResult> Index()
         {
-            return View(await db.Categories.ToListAsync());
+            var categories = await db.Categories.Include(c => c.FilmCategories).ToListAsync();
+            return View(categories);
         }
 
         // GET: Category/Create
