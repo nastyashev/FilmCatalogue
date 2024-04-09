@@ -28,7 +28,7 @@ namespace FilmCatalogue.Controllers
         {
             var categories = db.Categories.ToList();
             categories.Insert(0, new Category { Id = 0, Name = "None" });
-            ViewBag.ParentCategoryId = new SelectList(categories, "Id", "Name");
+            ViewBag.ParentCategoryList = new SelectList(categories, "Id", "Name");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace FilmCatalogue.Controllers
             Category category = await db.Categories.FindAsync(id);
             var categories = db.Categories.Where(c => c.Id != id).ToList();
             categories.Insert(0, new Category { Id = 0, Name = "None" });
-            ViewBag.ParentCategoryId = new SelectList(categories, "Id", "Name", category.ParentCategoryId);
+            ViewBag.ParentCategoryList = new SelectList(categories, "Id", "Name", category.ParentCategoryId);
             if (category == null)
             {
                 return HttpNotFound();
