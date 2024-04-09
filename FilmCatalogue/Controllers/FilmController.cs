@@ -66,10 +66,19 @@ namespace FilmCatalogue.Controllers
 
         // POST: Film/Create
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Director,Release")] Film film)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Director,Release")] Film film, int[] categoryIds)
         {
             if (ModelState.IsValid)
             {
+                if (categoryIds != null)
+                {
+                    var categories = await db.Categories.Where(c => categoryIds.Contains(c.Id)).ToListAsync();
+
+                    foreach (var category in categories)
+                    {
+                        film.FilmCategories.Add(new FilmCategory { Film = film, Category = category });
+                    }
+                }
                 db.Films.Add(film);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

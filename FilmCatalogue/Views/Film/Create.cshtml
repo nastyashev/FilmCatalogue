@@ -40,12 +40,17 @@
             </div>
         </div>
 
-        <select class="js-example-basic-multiple" multiple="multiple">
-            @foreach (var category in ViewBag.Categories as List<FilmCatalogue.Models.Category>)
-            {
-                <option value="@category.Id">@category.Name</option>
-            }
-        </select>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="js-example-basic-multiple js-states form-control" name="categoryIds" multiple="multiple">
+                    @foreach (var category in ViewBag.Categories as List<FilmCatalogue.Models.Category>)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
