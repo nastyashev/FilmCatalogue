@@ -19,7 +19,25 @@ namespace FilmCatalogue.Controllers
         // GET: Film
         public async Task<ActionResult> Index()
         {
-            return View(await db.Films.ToListAsync());
+            var query = await db.Films
+                .Select(f => new
+                {
+                    f.Name,
+                    f.Director,
+                    f.Release,
+                    Categories = f.FilmCategories.Select(fc => fc.Category.Name)
+                })
+                .ToListAsync();
+
+            var result = query.Select(f => new Film
+            {
+                Name = f.Name,
+                Director = f.Director,
+                Release = f.Release,
+                Categories = string.Join(", ", f.Categories)
+            }).ToList();
+
+            return View(result);
         }
 
         // GET: Film/Details/5

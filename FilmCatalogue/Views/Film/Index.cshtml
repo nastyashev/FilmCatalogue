@@ -13,13 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Назва
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Director)
+            Режисер
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Release)
+            Дата виходу
+        </th>
+        <th>
+            Категорії
         </th>
         <th></th>
     </tr>
@@ -35,6 +38,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.Release)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categories)
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
