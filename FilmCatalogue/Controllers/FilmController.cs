@@ -14,7 +14,7 @@ namespace FilmCatalogue.Controllers
 {
     public class FilmController : Controller
     {
-        private FilmCatalogueContext db = new FilmCatalogueContext();
+        private readonly FilmCatalogueContext db = new FilmCatalogueContext();
 
         // GET: Film
         public async Task<ActionResult> Index()
