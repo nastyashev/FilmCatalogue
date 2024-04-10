@@ -42,12 +42,12 @@
             </div>
         </div>
 
-        <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-            @foreach (var category in ViewBag.Categories as List<FilmCatalogue.Models.Category>)
-            {
-                <option value="@category.Id">@category.Name</option>
-            }
-        </select>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBox("categoryIds", ViewBag.AllCategories as MultiSelectList, new { @class = "form-control js-states", id = "categoryIds" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -66,7 +66,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.js-example-basic-multiple').select2();
+            $('#categoryIds').select2();
         });
     </script>
 }

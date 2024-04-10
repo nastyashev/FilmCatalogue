@@ -23,7 +23,7 @@ namespace FilmCatalogue.Models
         [Required]
         public string Director { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
         [Column("release")]
         [Required]

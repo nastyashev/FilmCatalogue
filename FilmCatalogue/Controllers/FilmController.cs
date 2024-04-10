@@ -99,18 +99,51 @@ namespace FilmCatalogue.Controllers
             {
                 return HttpNotFound();
             }
+
+            var allCategories = await db.Categories.ToListAsync();
+            var filmCategoryIds = await db.FilmCategories
+                .Where(fc => fc.FilmId == id)
+                .Select(fc => fc.CategoryId)
+                .ToListAsync();
+            ViewBag.AllCategories = new MultiSelectList(allCategories, "Id", "Name", filmCategoryIds);
+
             return View(film);
         }
 
         // POST: Film/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Director,Release")] Film film)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Director,Release")] Film film, int[] categoryIds)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(film).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var filmToUpdate = await db.Films.Include(f => f.FilmCategories).FirstOrDefaultAsync(f => f.Id == film.Id);
+
+                if (filmToUpdate != null)
+                {
+                    filmToUpdate.Name = film.Name;
+                    filmToUpdate.Director = film.Director;
+                    filmToUpdate.Release = film.Release;
+
+                    var filmCategoriesToRemove = filmToUpdate.FilmCategories.ToList();
+                    foreach (var filmCategory in filmCategoriesToRemove)
+                    {
+                        db.FilmCategories.Remove(filmCategory);
+                    }
+
+                    if (categoryIds != null)
+                    {
+                        var categories = await db.Categories.Where(c => categoryIds.Contains(c.Id)).ToListAsync();
+
+                        foreach (var category in categories)
+                        {
+                            filmToUpdate.FilmCategories.Add(new FilmCategory { FilmId = film.Id, CategoryId = category.Id });
+                        }
+                    }
+
+                    db.Entry(filmToUpdate).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
             return View(film);
         }
