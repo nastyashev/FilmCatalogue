@@ -42,21 +42,6 @@ namespace FilmCatalogue.Controllers
             return View(result);
         }
 
-        // GET: Film/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Film film = await db.Films.FindAsync(id);
-            if (film == null)
-            {
-                return HttpNotFound();
-            }
-            return View(film);
-        }
-
         // GET: Film/Create
         public ActionResult Create()
         {
