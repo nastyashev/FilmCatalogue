@@ -11,49 +11,56 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<table class="table" id="filmsTable">
-    <thead>
-        <tr>
-            <th class="no-sort">
-                Назва
-            </th>
-            <th class="no-sort">
-                Режисер
-            </th>
-            <th>
-                Дата виходу
-            </th>
-            <th class="no-sort">
-                Категорії
-            </th>
-            <th class="no-sort"></th>
-        </tr>
-    </thead>
+@using (Html.BeginForm("Index", "Film", FormMethod.Get))
+{
+    <p>
+        @Html.Label("Category Filter: ")
+        @Html.DropDownList("CategoryFilter", ViewBag.CategoryFilter as SelectList, "All", new { onchange = "this.form.submit();" })
+    </p>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table" id="filmsTable">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Director)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Release)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categories)
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+                <th class="no-sort">
+                    Назва
+                </th>
+                <th class="no-sort">
+                    Режисер
+                </th>
+                <th>
+                    Дата виходу
+                </th>
+                <th class="no-sort">
+                    Категорії
+                </th>
+                <th class="no-sort"></th>
             </tr>
-        }
-    </tbody>
+        </thead>
 
-</table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Director)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Release)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categories)
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>

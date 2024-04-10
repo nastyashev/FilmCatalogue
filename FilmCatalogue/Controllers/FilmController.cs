@@ -17,7 +17,7 @@ namespace FilmCatalogue.Controllers
         private readonly FilmCatalogueContext db = new FilmCatalogueContext();
 
         // GET: Film
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string categoryFilter = null)
         {
             var query = await db.Films
                 .Select(f => new
@@ -30,6 +30,11 @@ namespace FilmCatalogue.Controllers
                 })
                 .ToListAsync();
 
+            if (!string.IsNullOrEmpty(categoryFilter))
+            {
+                query = query.Where(f => f.Categories.Contains(categoryFilter)).ToList();
+            }
+
             var result = query.Select(f => new Film
             {
                 Id = f.Id,
@@ -38,6 +43,8 @@ namespace FilmCatalogue.Controllers
                 Release = f.Release,
                 Categories = string.Join(", ", f.Categories)
             }).ToList();
+
+            ViewBag.CategoryFilter = new SelectList(db.Categories, "Name", "Name");
 
             return View(result);
         }
