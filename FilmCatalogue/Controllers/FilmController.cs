@@ -79,7 +79,7 @@ namespace FilmCatalogue.Controllers
             return View(film);
         }
 
-        // GET: Film/Edit/5
+        // GET: Film/Edit/{id}
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,7 +102,7 @@ namespace FilmCatalogue.Controllers
             return View(film);
         }
 
-        // POST: Film/Edit/5
+        // POST: Film/Edit/{id}
         [HttpPost]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Director,Release")] Film film, int[] categoryIds)
         {
@@ -140,7 +140,7 @@ namespace FilmCatalogue.Controllers
             return View(film);
         }
 
-        // GET: Film/Delete/5
+        // GET: Film/Delete/{id}
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
