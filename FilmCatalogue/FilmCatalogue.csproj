@@ -192,12 +192,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Film\Create.cshtml" />
-    <Content Include="Views\Film\Delete.cshtml" />
     <Content Include="Views\Film\Edit.cshtml" />
     <Content Include="Views\Film\Index.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
-    <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>

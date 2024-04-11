@@ -1,36 +1,38 @@
 ﻿@model IEnumerable<FilmCatalogue.Models.Film>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Films";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Фільми</h2>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("Create", "Film", FormMethod.Get))
+{
+    <input type="submit" value="Додати" class="btn btn-primary mb-3" />
+}
 
-@using (Html.BeginForm("Index", "Film", FormMethod.Get))
+@using (Html.BeginForm())
 {
     <p>
-        @Html.Label("Category Filter: ")
-        @Html.DropDownList("CategoryFilter", ViewBag.CategoryFilter as SelectList, "All", new { onchange = "this.form.submit();" })
+        <label class="control-label">Фільтр за категорією: </label>
+        @Html.DropDownList("CategoryFilter", ViewBag.CategoryFilter as SelectList, "All", new { onchange = "this.form.submit();", htmlAttributes = new { @class = "form-control" } })
     </p>
 
     <table class="table" id="filmsTable">
         <thead>
             <tr>
-                <th class="no-sort">
+                <th class="no-sort col-3">
                     Назва
                 </th>
-                <th class="no-sort">
+                <th class="no-sort col-2">
                     Режисер
                 </th>
-                <th>
+                <th class="text-start col-2">
                     Дата виходу
                 </th>
-                <th class="no-sort">
+                <th class="no-sort col-3">
                     Категорії
                 </th>
                 <th class="no-sort"></th>
@@ -47,14 +49,14 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Director)
                     </td>
-                    <td>
+                    <td class="text-start">
                         @Html.DisplayFor(modelItem => item.Release)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Categories)
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Інформація", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
                     </td>
                 </tr>
             }

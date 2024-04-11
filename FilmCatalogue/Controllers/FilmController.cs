@@ -152,14 +152,6 @@ namespace FilmCatalogue.Controllers
             {
                 return HttpNotFound();
             }
-            return View(film);
-        }
-
-        // POST: Film/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Film film = await db.Films.FindAsync(id);
             db.Films.Remove(film);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

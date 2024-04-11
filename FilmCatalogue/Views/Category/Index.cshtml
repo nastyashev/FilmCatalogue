@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<FilmCatalogue.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Категорії</h2>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("Create", "Category", FormMethod.Get))
+{
+    <input type="submit" value="Додати" class="btn btn-primary" />
+}
 
 <table class="table">
     <tr>
@@ -38,8 +40,8 @@
                 @Html.DisplayFor(modelItem => item.Level)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Інформація", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

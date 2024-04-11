@@ -97,16 +97,17 @@ namespace FilmCatalogue.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
-        }
 
-        // POST: Category/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Category category = await db.Categories.FindAsync(id);
+            var childCategories = db.Categories.Where(c => c.ParentCategoryId == id);
+            foreach (var childCategory in childCategories)
+            {
+                childCategory.ParentCategoryId = null;
+            }
+            await db.SaveChangesAsync();
+
             db.Categories.Remove(category);
             await db.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 

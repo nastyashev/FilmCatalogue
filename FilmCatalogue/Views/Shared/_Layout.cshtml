@@ -21,15 +21,14 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Films", "Index", "Film", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Categories", "Index", "Category", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Фільми", "Index", "Film", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Категорії", "Index", "Category", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
     </div>
 
     @RenderSection("scripts", required: false)
